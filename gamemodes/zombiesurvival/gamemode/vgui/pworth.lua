@@ -1,3 +1,19 @@
+THEME = {
+  -- sunrust sun color Color(255, 82, 0)
+  -- sunrust background Color(20, 14, 55)
+  background = Color(58, 18, 78, 160),
+  text = Color(255, 110, 50),
+  primary = Color(249, 214, 56),
+  secondary = Color(200, 110, 100, 120),
+  accent = Color(255, 129, 110),
+  positive = Color(0, 255, 0),
+  negative = Color(255, 0, 0),
+  darkPositive = Color(0, 150, 0),
+  darkNegative = Color(185, 35, 35),
+  warning = Color(255, 255, 0),
+  info = Color(0, 0, 255),
+}
+
 function InitialWorthMenu()
 	timer.Create("WaitUntilSkillsLoaded", 0, 0, function()
 		if GAMEMODE.ReceivedInitialSkills then
