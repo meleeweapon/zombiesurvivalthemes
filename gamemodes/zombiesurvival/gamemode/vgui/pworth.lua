@@ -239,9 +239,9 @@ function MakepWorth()
 	topspace:SetWide(wid * 0.75)
 	topspace:SetPaintBackground(false)
 
-	local title = EasyLabel(topspace, "The Worth Menu", "ZSHUDFontSmall", COLOR_WHITE)
+	local title = EasyLabel(topspace, "The Worth Menu", "ZSHUDFontSmall", THEME.text)
 	title:CenterHorizontal()
-	local subtitle = EasyLabel(topspace, "Select the items you're going to start with this round.", "ZSHUDFontTiny", COLOR_WHITE)
+	local subtitle = EasyLabel(topspace, "Select the items you're going to start with this round.", "ZSHUDFontTiny", THEME.text)
 	subtitle:CenterHorizontal()
 	subtitle:MoveBelow(title, 4)
 
@@ -493,13 +493,13 @@ function PANEL:Init()
 	self.ModelFrame:SetMouseInputEnabled(false)
 	self.ModelFrame.Paint = function() end
 
-	self.NameLabel = EasyLabel(self, "", "ZSHUDFontSmallest")
+	self.NameLabel = EasyLabel(self, "", "ZSHUDFontSmallest", THEME.text)
 	self.NameLabel:SetContentAlignment(4)
 	self.NameLabel:DockPadding(0, 0, 0, 0)
 	self.NameLabel:DockMargin(0, 0, 0, 0)
 	--self.NameLabel:Dock(FILL)
 
-	self.PriceLabel = EasyLabel(self, "", "ZSHUDFontTiny")
+	self.PriceLabel = EasyLabel(self, "", "ZSHUDFontTiny", THEME.text)
 	self.PriceLabel:SetContentAlignment(4)
 	self.PriceLabel:DockPadding(0, 0, 0, 0)
 	--self.PriceLabel:Dock(RIGHT)
@@ -554,7 +554,7 @@ function PANEL:SetWorthID(id)
 	end
 
 	if missing_skill then
-		self.PriceLabel:SetTextColor(COLOR_RED)
+		self.PriceLabel:SetTextColor(THEME.negative)
 		self.PriceLabel:SetText(GAMEMODE.Skills[tab.SkillRequirement].Name)
 	elseif tab.Price then
 		self.PriceLabel:SetText(tostring(tab.Price).." Worth")
@@ -577,7 +577,7 @@ function PANEL:SetWorthID(id)
 	end
 
 	if not nottrinkets and tab.SubCategory then
-		local catlabel = EasyLabel(self, GAMEMODE.ItemSubCategories[tab.SubCategory], "ZSBodyTextFont")
+		local catlabel = EasyLabel(self, GAMEMODE.ItemSubCategories[tab.SubCategory], "ZSBodyTextFont", THEME.text)
 		catlabel:SizeToContents()
 		catlabel:SetPos(10, self:GetTall() * 0.3 - catlabel:GetTall() * 0.5)
 	end
@@ -587,12 +587,12 @@ function PANEL:SetWorthID(id)
 	self.NameLabel:SizeToContents()
 end
 
-local colBG = Color(15, 15, 15, 255)
-local colSel = Color(15, 40, 15, 255)
+local colBG = THEME.background
+local colSel = THEME.secondary
 function PANEL:Paint(w, h)
 	local outline
 	if self.Hovered then
-		outline = self.On and COLOR_MIDGRAY or (self.Locked or not self.On and remainingworth < self.Price) and COLOR_RED or self.Depressed and COLOR_GREEN or COLOR_DARKGREEN
+		outline = self.On and THEME.accent or (self.Locked or not self.On and remainingworth < self.Price) and THEME.negative or self.Depressed and THEME.accent or THEME.accent
 
 		draw.RoundedBox(8, 0, 0, w, h, outline)
 	end
@@ -649,13 +649,13 @@ function PANEL:DoClick(silent, force)
 
 	pWorth.WorthLab:SetText("Worth: ".. remainingworth)
 	if remainingworth <= 0 then
-		pWorth.WorthLab:SetTextColor(COLOR_RED)
+		pWorth.WorthLab:SetTextColor(THEME.negative)
 		pWorth.WorthLab:InvalidateLayout()
 	elseif remainingworth < GetStartingWorth() then
-		pWorth.WorthLab:SetTextColor(COLOR_YELLOW)
+		pWorth.WorthLab:SetTextColor(THEME.warning)
 		pWorth.WorthLab:InvalidateLayout()
 	else
-		pWorth.WorthLab:SetTextColor(COLOR_LIMEGREEN)
+		pWorth.WorthLab:SetTextColor(THEME.positive)
 		pWorth.WorthLab:InvalidateLayout()
 	end
 	pWorth.WorthLab:SizeToContents()
