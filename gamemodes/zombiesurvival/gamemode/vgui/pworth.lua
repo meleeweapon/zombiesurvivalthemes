@@ -224,6 +224,11 @@ function MakepWorth()
 
 	local frame = vgui.Create("DFrame")
 	pWorth = frame
+	frame.Paint = function(self, w, h)
+	  -- this is necessary to render a different background color otherwise it uses a default hard coded value
+          draw.RoundedBox(2, 0, 0, w, h, THEME.background)
+	end
+
 	frame:SetSize(wid, hei)
 	frame:SetDeleteOnClose(true)
 	frame:SetKeyboardInputEnabled(false)
